@@ -177,6 +177,8 @@ class Random_Augment():
         return img, new_polys
 
     def random_scale(self,img, polys, min_size):
+        # cv2.imshow ('6',img)
+        # cv2.waitKey(0)
         polys,len_max = solve_polys(polys)
         h, w = img.shape[0:2]
         new_polys = []

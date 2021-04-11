@@ -37,7 +37,7 @@ def test_net(config):
     files = glob.glob(os.path.join(config['test']['test_img_dir'],'*'+config['test']['test_img_format']))
     model = DBNet(config).cuda()
    
-    model_dict = torch.load(config['test']['checkpoints'])['state_dict']
+    model_dict = torch.load(config['test']['checkpoint'])['state_dict']
     state = model.state_dict()
     for key in state.keys():
         if key in model_dict.keys():
@@ -76,7 +76,7 @@ def test_net(config):
         bar.update(1)
         img = cv2.imread(file)
         img_ori = img.copy()
-        img_name = file.split('/')[-1].split('.')[0]
+        img_name = file.split('/')[-1].split('.')[0].replace('test_img\\','')
         img = resize_image(img,config['test']['short_side'])
         
         img = transforms.ToTensor()(img)

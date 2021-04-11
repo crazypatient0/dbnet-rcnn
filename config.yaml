@@ -7,29 +7,29 @@ train:
       inner_channels: 256
       k: 50
       adaptive: True
-      start_val_epoch: 1000
-      n_epoch: 1200
-      batch_size: 16
+      start_val_epoch: 50
+      n_epoch: 500
+      batch_size: 4
       use_sr: True
       sr_lr: 0.00001
       base_lr: 0.002
       num_workers: 0
       show_step: 5
-      print_format: 'linux'  # linux or windows
+      print_format: 'windows'  # linux or windows
       restore: True
-      resume: './checkpoints/DB_resnet18_bs_16_ep_1200/DB.pth.tar'
-      checkpoints: './checkpoints'
+      resume: './checkpoint/DB_resnet18_bs_4_ep_500/DB.pth.tar'
+      checkpoint: './checkpoint'
       is_icdar2015: True
       is_transform: True
       is_show: False
       train_img_format: '.jpg'
       val_img_format: '.jpg'
-      train_img_dir: '/home/aistudio/work/data/icdar/train_img/'
-      train_gt_dir: '/home/aistudio/work/data/icdar/train_gt/'
-      val_img_dir: '/home/aistudio/work/data/icdar/test_img/'
-      val_gt_dir: '/home/aistudio/work/data/icdar/test_gt/'
+      train_img_dir: './datasets/icdar/train_img/'
+      train_gt_dir: './datasets/icdar/train_gt/'
+      val_img_dir: './datasets/icdar/test_img/'
+      val_gt_dir: './datasets/icdar/test_gt/'
       radom_angle: [-10, 10]
-      output_path: './outputs_val'
+      output_path: './output'
       decay_method: 'e_decay'  # e_decay: 指数衰减, s_decay: 指定epoch衰减
       schedule: [500,800,1000]
       gama: 0.1
@@ -47,9 +47,9 @@ test:
       is_poly: False
       is_icdar2015: True
       test_img_format: '.jpg'
-      test_img_dir: '/home/aistudio/work/data/icdar/test_img/'
-      test_gt_dir: '/home/aistudio/work/data/icdar/test_gt/'
-      checkpoints: './checkpoints/DB_resnet18_bs_16_ep_1200/DB.pth.tar'
+      test_img_dir: './datasets/icdar/test_img'
+      test_gt_dir: './datasets/icdar/test_gt'
+      checkpoint: './checkpoint/DB_resnet18_bs_4_ep_500/DB.pth.tar'
       out_dir: './outputs_test'
       
 pruned:
@@ -60,9 +60,9 @@ pruned:
       pruned_checkpoints: './pruned/checkpoint/pruned_dict.pth.tar'
       checkpoints_dict: './pruned/checkpoint/pruned_dict.dict'
       save_checkpoints: './pruned/checkpoint'
-      checkpoints: './checkpoints/DB_resnet18_bs_16_ep_1200/DB.pth.tar'
+      checkpoints: './checkpoint/DB_resnet18_bs_16_ep_1200/DB.pth.tar'
       finetune_lr: 0.0005
-      resume: './checkpoints/DB_resnet18_bs_16_ep_1200/DB.pth.tar'
+      resume: './checkpoint/DB_resnet18_bs_16_ep_1200/DB.pth.tar'
       restore: True
       n_epoch: 100
       start_val_epoch: 40

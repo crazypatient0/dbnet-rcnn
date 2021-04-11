@@ -56,6 +56,7 @@ def worker_init_fn(worker_id):
 
 def train_net(config):
     os.environ["CUDA_VISIBLE_DEVICES"] = config['train']['gpu_id']
+    # print(torch.cuda.is_available())
     data_loader = DataLoader(config)
     train_loader = torch.utils.data.DataLoader(
         data_loader,
@@ -69,9 +70,9 @@ def train_net(config):
     start_epoch = 0
     running_metric_binary = runningScore(2)
 
-    if not (os.path.exists(config['train']['checkpoints'])):
-            os.mkdir(config['train']['checkpoints'])
-    checkpoints = os.path.join(config['train']['checkpoints'],"DB_%s_bs_%d_ep_%d" % (config['train']['backbone'],
+    if not (os.path.exists(config['train']['checkpoint'])):
+            os.mkdir(config['train']['checkpoint'])
+    checkpoints = os.path.join(config['train']['checkpoint'],"DB_%s_bs_%d_ep_%d" % (config['train']['backbone'],
                           config['train']['batch_size'], config['train']['n_epoch']))
     if not (os.path.exists(checkpoints)):
             os.mkdir(checkpoints)
@@ -83,6 +84,7 @@ def train_net(config):
 
     if config['train']['restore']:
         print('Resuming from checkpoint.')
+        print(config['train']['resume'])
         assert os.path.isfile(config['train']['resume']), 'Error: no checkpoint directory found!'
         checkpoint = torch.load(config['train']['resume'])
         start_epoch = checkpoint['epoch']
@@ -96,7 +98,6 @@ def train_net(config):
     max_hmean = -1
     for epoch in range(start_epoch,config['train']['n_epoch']):
         model.train()
-
         bce_loss_list = []
         thresh_loss_list = []
         l1_loss_list = []

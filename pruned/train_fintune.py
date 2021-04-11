@@ -67,8 +67,8 @@ def train_net(config):
     start_epoch = 0
     running_metric_binary = runningScore(2)
 
-    if not (os.path.exists(config['train']['checkpoints'])):
-        os.mkdir(config['train']['checkpoints'])
+    if not (os.path.exists(config['train']['checkpoint'])):
+        os.mkdir(config['train']['checkpoint'])
     checkpoints = os.path.join(config['pruned']['save_checkpoints'], "DB_%s_bs_%d_ep_%d" % (config['train']['backbone'],
                                                                                             config['train'][
                                                                                                 'batch_size'],

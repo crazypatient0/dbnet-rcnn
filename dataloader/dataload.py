@@ -25,6 +25,7 @@ def get_img(img_path):
     return img
 
 def get_bboxes(gt_path,config):
+    # print(gt_path)
     with open(gt_path,'r',encoding='utf-8') as fid:
         lines = fid.readlines()
     polys = []
@@ -52,7 +53,9 @@ class DataLoader(data.Dataset):
         img_paths = glob.glob(os.path.join(config['train']['train_img_dir'],'*'+config['train']['train_img_format']))
         gt_paths = []
         for img_path in img_paths:
-            im_name = img_path.split('/')[-1].split('.')[0]
+            # print(1,img_path)
+            im_name = img_path.split('/')[-1].split('.')[0].replace('train_img\\','')
+            # print(im_name)
             if(config['train']['is_icdar2015']):
                 gt_file_name = 'gt_'+im_name+'.txt'
             else:
@@ -66,9 +69,11 @@ class DataLoader(data.Dataset):
 
     def __getitem__(self, index):
         img_path = self.img_paths[index]
+        # print(img_path)
         gt_path = self.gt_paths[index]
 
         img = get_img(img_path)
+
         polys, dontcare = get_bboxes(gt_path,self.config)
 
         if self.config['train']['is_transform']:

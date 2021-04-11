@@ -39,7 +39,7 @@ def test_net(config):
     model = DBNet(config)
     model = load_prune_model(model, config['pruned']['checkpoints_dict']).cuda()
 
-    model_dict = torch.load(config['pruned']['checkpoints'])['state_dict']
+    model_dict = torch.load(config['pruned']['checkpoint'])['state_dict']
     state = model.state_dict()
     for key in state.keys():
         if key in model_dict.keys():

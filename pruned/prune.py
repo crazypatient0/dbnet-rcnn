@@ -36,7 +36,7 @@ def prune(config):
     os.environ["CUDA_VISIBLE_DEVICES"] = config['pruned']['gpu_id']
 
     model = DBNet(config).cuda()
-    model_dict = torch.load(config['pruned']['checkpoints'])['state_dict']
+    model_dict = torch.load(config['pruned']['checkpoint'])['state_dict']
     state = model.state_dict()
     for key in state.keys():
         if key in model_dict.keys():

@@ -80,6 +80,6 @@ def cal_binary_score(binarys, gt_binarys, training_masks, running_metric_binary,
     return score_binary
 
 
-def save_checkpoint(state, checkpoint='checkpoints', filename='DB.pth.tar'):
+def save_checkpoint(state, checkpoint='checkpoint', filename='DB.pth.tar'):
     filepath = os.path.join(checkpoint, filename)
     torch.save(state, filepath)

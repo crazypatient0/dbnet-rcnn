@@ -58,7 +58,8 @@ def val(model,config):
         bar.update(1)
         img = cv2.imread(file)
         img_ori = img.copy()
-        img_name = file.split('/')[-1].split('.')[0]
+        img_name = file.split('/')[-1].split('.')[0].replace('test_img\\','')
+        # print(img_name)
         img = resize_image(img,config['test']['short_side'])
         img = Image.fromarray(img)
         img = img.convert('RGB')
@@ -87,7 +88,7 @@ def val(model,config):
             text_file = 'res_' + img_name + '.txt'
         else:
             text_file = img_name + '.txt'
-
+        # print(os.path.join(config['train']['output_path'],'img_text',text_file))
         with open(os.path.join(config['train']['output_path'],'img_text',text_file),'w+',encoding='utf-8') as fid:
             for bbox in bbox_batch[0]:
                 if(len(bbox)==0):
@@ -96,7 +97,7 @@ def val(model,config):
                 bbox = [str(x) for x in bbox]
                 bbox = ','.join(bbox)
                 fid.write(bbox+'\n')
-                
+        # print(config['train']['output_path'],'img_result',img_name+'.jpg')
         cv2.imwrite(os.path.join(config['train']['output_path'],'img_result',img_name+'.jpg'),img_ori)
     bar.close()
     print('fps: %.2f'%(total_frame / total_time))
